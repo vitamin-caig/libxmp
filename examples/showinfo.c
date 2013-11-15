@@ -6,11 +6,12 @@
 #include <xmp.h>
 
 
-static void display_info(struct xmp_module_info *mi)
+static void display_info(struct xmp_module_info *mi, struct xmp_frame_info* fi)
 {
 	int i, j;
 	struct xmp_module *mod = mi->mod;
 
+	printf("File size: %d\n", mi->size);
 	printf("Name: %s\n", mod->name);
 	printf("Type: %s\n", mod->type);
 	printf("Number of patterns: %d\n", mod->pat);
@@ -21,6 +22,7 @@ static void display_info(struct xmp_module_info *mi)
 	printf("Initial speed: %d\n", mod->spd);
 	printf("Initial BPM: %d\n", mod->bpm);
 	printf("Length in patterns: %d\n", mod->len);
+	printf("Duration: %d.%ds\n", fi->total_time / 1000, fi->total_time % 1000);
 
 	printf("\n");
 
@@ -70,6 +72,7 @@ int main(int argc, char **argv)
 {
 	static xmp_context ctx;
 	static struct xmp_module_info mi;
+	static struct xmp_frame_info fi;
 	int i;
 
 	ctx = xmp_create_context();
@@ -83,7 +86,8 @@ int main(int argc, char **argv)
 
 		if (xmp_start_player(ctx, 44100, 0) == 0) {
 			xmp_get_module_info(ctx, &mi);
-			display_info(&mi);
+			xmp_get_frame_info(ctx, &fi);
+			display_info(&mi, &fi);
 			xmp_end_player(ctx);
 		}
 

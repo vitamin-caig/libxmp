@@ -247,6 +247,7 @@ struct xmp_module_info {
 	char *comment;			/* Comment text, if any */
 	int num_sequences;		/* Number of valid sequences */
 	struct xmp_sequence *seq_data;	/* Pointer to sequence data */
+	long size;			/* Size of raw module data */
 };
 
 struct xmp_frame_info {			/* Current frame information */
