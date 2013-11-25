@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include <fnmatch.h>
 #include "common.h"
-#include "synth.h"
 
 
 /*
@@ -136,7 +135,6 @@ void load_prologue(struct context_data *ctx)
     	m->mod.len = 0;
     	m->mod.rst = 0;
 
-	m->synth = &synth_null;
 	m->extra = NULL;
 	m->time_factor = DEFAULT_TIME_FACTOR;
 

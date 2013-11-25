@@ -237,9 +237,6 @@ struct module_data {
 
 	void *extra;			/* format-specific extra fields */
 
-	const struct synth_info *synth;
-	void *synth_chip;
-
 	char **scan_cnt;		/* scan counters */
 };
 
