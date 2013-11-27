@@ -2,6 +2,10 @@
 #ifndef XMP_PRIVATE_H
 #define XMP_PRIVATE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 extern const struct format_loader xm_loader;
 extern const struct format_loader mod_loader;
 extern const struct format_loader flt_loader;
@@ -59,5 +63,10 @@ extern const struct format_loader pw_loader;
 extern const struct format_loader hmn_loader;
 
 int xmp_load_typed_module_from_memory(xmp_context opaque, void *mem, long size, const struct format_loader* loader);
+const char* xmp_get_loader_name(const struct format_loader* loader);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

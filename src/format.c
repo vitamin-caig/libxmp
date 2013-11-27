@@ -95,3 +95,8 @@ char **format_list()
 
 	return (char **)_farray;
 }
+
+const char* xmp_get_loader_name(const struct format_loader* loader)
+{
+  return loader->name;
+}
