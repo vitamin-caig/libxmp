@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <fnmatch.h>
 #include "common.h"
-
+#include "loaders/loader.h"
 
 /*
  * Handle special "module quirks" that can't be detected automatically
@@ -218,9 +218,12 @@ int prepare_scan(struct context_data *ctx)
 		return -XMP_ERROR_SYSTEM;
 
 	for (i = 0; i < mod->len; i++) {
-		int pat = mod->xxo[i];
-		m->scan_cnt[i] = calloc(1, pat >= mod->pat ?  1 :
-			mod->xxp[pat]->rows ? mod->xxp[pat]->rows : 1);
+		int pat_idx = mod->xxo[i];
+		struct xmp_pattern *pat;
+		if (pat_idx < mod->pat && !mod->xxp[pat_idx])
+		  pattern_alloc(mod, pat_idx);
+		pat = pat_idx >= mod->pat ? NULL : mod->xxp[pat_idx];
+		m->scan_cnt[i] = calloc(1, pat && pat->rows ? pat->rows : 1);
 		if (m->scan_cnt[i] == NULL)
 			return -XMP_ERROR_SYSTEM;
 	}
